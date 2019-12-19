@@ -5,7 +5,7 @@ module.exports = {
   entry: './client/App.jsx',
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'public')
+    path: path.resolve(__dirname, 'server/public')
   },
 
   module: {

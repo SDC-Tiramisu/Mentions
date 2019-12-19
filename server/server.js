@@ -1,23 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
-const port = 3003;
 const cors = require('cors');
 const db = require('../database/index.js');
-const Restaurant = require('../database/schema.js');
+const model = require('./database/model.js');
 
+//basic server prep
+const app = express();
+const port = 3003;
+
+app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(cors());
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}...`);
-})
-
+//specialized routes
+//old route
 app.get('/api/restaurants/:restaurantID', (req, res) => {
   var restId = parseInt(req.params.restaurantID);
   // console.log("Restaurant ID: ", restId);
-  Restaurant.findOne({id: restId}).lean()
+  Model.read(restId)
     .then((doc) => {
       res.send(doc);
       // console.log(doc);
@@ -27,4 +27,68 @@ app.get('/api/restaurants/:restaurantID', (req, res) => {
     })
 })
 
+//Create route
+app.post('/api/restaurants/create/:restaurantID', (req, res) => {
+  var restId = parseInt(req.params.restaurantID);
+  // console.log("Restaurant ID: ", restId);
+  Model.create(restId)
+    .then((doc) => {
+      res.statusCode = 201;
+      res.end();
+      // console.log(doc);
+    })
+    .catch((err) => {
+      console.log("Error creating restaurant in database: ", err);
+    })
+})
 
+//Read route
+app.get('/api/restaurants/read/:restaurantID', (req, res) => {
+  var restId = parseInt(req.params.restaurantID);
+  // console.log("Restaurant ID: ", restId);
+  Model.get(restId)
+    .then((doc) => {
+      res.send(doc);
+      // console.log(doc);
+    })
+    .catch((err) => {
+      console.log("Error finding restaurant in database: ", err);
+    })
+})
+
+//Update route
+app.post('/api/restaurants/update/:restaurantID', (req, res) => {
+  var restId = parseInt(req.params.restaurantID);
+  let body = req.body;
+  // console.log("Restaurant ID: ", restId);
+  Model.update(restId, body)
+    .then((doc) => {
+      res.statusCode = 201;
+      res.end();
+      // console.log(doc);
+    })
+    .catch((err) => {
+      console.log("Error updating restaurant in database: ", err);
+    })
+})
+
+app.post('/api/restaurants/delete/:restaurantID', (req, res) => {
+  var restId = parseInt(req.params.restaurantID);
+  // console.log("Restaurant ID: ", restId);
+  Model.delete(restId)
+    .then((doc) => {
+      res.statusCode = 201;
+      res.end();
+      // console.log(doc);
+    })
+    .catch((err) => {
+      console.log("Error deleting restaurant in database: ", err);
+    })
+})
+
+
+
+//server start-up
+app.listen(port, () => {
+  console.log(`Listening on port ${port}...`);
+})
