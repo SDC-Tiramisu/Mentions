@@ -74,7 +74,7 @@ const saveToFile = function(array, filePath) { //array is what is being saved, f
     fd = fs.openSync(filePath, 'as');
     //write using streams/buffers ideally like one object at a time and keeping almost nothing in RAM. Possibly use fs.append(path, data, callback)
     for (let elt of array) {
-          fs.appendFileSync(fd, JSON.stringify(elt) + ', \n');
+          fs.appendFileSync(fd, `${JSON.stringify(elt)},\n`);
     }
   } catch (err) {
     console.log('file opening/writing error: ' + err);
@@ -97,7 +97,7 @@ const script = () => {
     fd = fs.openSync(filePath, 'as');
     fs.appendFileSync(fd, '[\n');
   } catch (err) {
-  console.log('file opening/writing error: ' + err);
+    console.log('file opening/writing error: ' + err);
   } finally {
     fs.closeSync(fd)
   }
