@@ -1,8 +1,13 @@
+//1m authors, 10m reviews, 10mrestaurants, 1k pictures
+// write authors, reviews, and restaurants using maybe TSV? or CSV? but all to separate files.
+// Figure out if reading/writing can be dome relatively separately for each file just a few linesa at a time or else split them into like maybe 100k per file.
+// write pictures obviously  to their own file.
+
 const faker = require('faker');
 faker.seed(42); //so that if results are generated multiple times they are always consistent!
 
 //consecutive IDs, lorem ipsum title
-const generateRestaraunts = function(num) {
+const generateRestaraunts = function(num, start = 0) {
   let restaurants = [];
   for (let i = start; i < n; i++) {
     let restaurant = {
@@ -15,7 +20,7 @@ const generateRestaraunts = function(num) {
 };
 
 //consecutive IDs, 1-10 random restaurant ids, lorem ipsum title, lorem ipsum body, random author id, random photo id
-const generateArticles = function(n, start) {
+const generateArticles = function(n, start = 0) {
   let articles = [];
   for (let i = start; i < n; i++) {
     let article = {
@@ -35,9 +40,9 @@ const generateArticles = function(n, start) {
 }
 
 //consecutive IDs, random first name, random last name,
-const generateAuthors = function(n) {
+const generateAuthors = function(n, start = 0) {
   let authors = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = start; i < n; i++) {
     let author = {
       id: i,
       firstName: faker.name.firstName(),
@@ -49,23 +54,44 @@ const generateAuthors = function(n) {
 };
 
 //consecutive IDs, static photo
-const generatePhotos = function(n) {
+const generatePhotos = function(n, start = 0) {
   let photos = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = start; i < n; i++) {
     let photo = {
       id: i,
       url: faker.image.image()
     }
     photos.push[photo];
   }
-  return authors;
+  return photos;
 };
 
-const saveToFile = function(array, prefix, count) { //array is what is being saved, prefix is what the file prefix should be, count is the number so the file name will be something like "[prefix][n].csv" if I use csv which I probably will
+const saveToFile = function(array, filePath) { //array is what is being saved, filePath is, wlel, the file path
 
+//check for file, possibly just always create/overwrite? Nah, requires too much to be held in memory so create OR open if already exists.
+//write using streams/buffers ideally like one object at a time and keeping almost nothing in RAM. Possibly use fs.append(path, data, callback)
+//make sure file is closed NO MATTER WHAT
+// return... a promise?
 };
 
-//1m authors, 10m reviews, 10mrestaurants, 1k pictures
-// write authors, reviews, and restaurants using maybe TSV? or CSV? but all to separate files.
-// Figure out if reading/writing can be dome relatively separately for each file just a few linesa at a time or else split them into like maybe 100k per file.
-// write pictures obviously to their own file.
+//the function which actually DOES THE THING
+() => {
+  //create 10mil restaurants and call save multiple times throughout?
+  for (let i = 0; i < 10000000; i += 10000) {
+    let restaurants = generateRestaurants(10000, i);
+    saveToFile(restaurants, 'restaurants.json')
+  }
+  //create 10mil articles and call save multiple times throughout?
+  for (let i = 0; i < 10000000; i += 1000) {
+    let articles = generateArticles(1000, i);
+    saveToFile(articles, 'articles.json')
+  }
+  //create 1mil authors and call save multiple times throughout
+  for (let i = 0; i < 1000000; i += 10000) {
+    let articles = generateArticles(10000, i);
+    saveToFile(articles, 'articles.json')
+  }
+  //create 1000 photos then save photos
+  let photos = generatePhotos(1000);
+  saveToFile(photos, 'photos.json');
+}();
