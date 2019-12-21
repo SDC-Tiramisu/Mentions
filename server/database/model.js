@@ -1,5 +1,7 @@
 const Restaurant = require('./database/schema.js');
+const db = require('./index.js')
 
+//TO-DO: Update to Postgres
 const model = {
   read: function(id) {
     return Restaurant.findOne({id}).lean();

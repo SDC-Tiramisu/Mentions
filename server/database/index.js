@@ -1,14 +1,10 @@
-const mongoose = require('mongoose');
-const faker = require('faker');
+const { Client } = require('pg')
+const settings = require('./loginsettings');
 const Restaurant = require('./schema.js');
 
 
-mongoose.connect('mongodb://localhost/zagat', {useNewUrlParser: true});
+const db = new Client(settings)
+await db.connect()
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('mongoose is connected!');
-});
 
 module.exports = db;

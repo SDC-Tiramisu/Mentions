@@ -1,0 +1,36 @@
+use SCD5mentions
+
+CREATE TABLE IFNOTEXISTS restaurants (
+  id INTEGER PRIMARY NOT NULL,
+  title VARCHAR(32) NOT NULL
+)
+
+CREATE TABLE IFNOTEXISTS articles (
+  id INTEGER PRIMARY NOT NULL,
+  picture INTEGER NOT NULL,
+  title VARCHAR(32) NOT NULL,
+  body TEXT NOT NULL,
+  author INTEGER NOT NULL
+)
+
+CREATE TABLE IFNOTEXISTS photos (
+  id INTEGER PRIMARY NOT NULL,
+  url TEXT NOT NULL
+)
+
+CREATE TABLE IFNOTEXISTS authors (
+  id INTEGER PRIMARY NOT NULL,
+  first VARCHAR(32) NOT NULL,
+  last VARCHAR(32) NOT NULL
+)
+
+
+CREATE TABLE IFNOTEXISTS restaurants2articles (
+  id INTEGER PRIMARY NOT NULL,
+  restaurant INTEGER FOREIGN restaurants.id,
+  article INTEGER FOREIGN articles.id
+)
+
+
+
+module.exports = Restaurant;
