@@ -7,8 +7,9 @@
     "test": "test",
     "start": "npm run server & npm run dev",
     "server": "nodemon server/server.js",
-    "dev": "webpack -d --watch",
-    "prod": "webpack -p"
+    "build:dev": "webpack -d --watch",
+    "build:prod": "webpack -p",
+    "db:seed": "node server/database/createSeed.js"
   },
   "repository": {
     "type": "git",
