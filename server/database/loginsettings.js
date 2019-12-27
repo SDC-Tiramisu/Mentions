@@ -1,9 +1,6 @@
 const settings = {
-  user: 'robertbaker',
-  host: 'localhost',
-  database: 'SDC5mentions',
-  password: 'angel',
-  port: 5432,
+  database: 'mentions',
+  defaultAccessMode: neo4j.session.READ
 }
 
 export default settings;

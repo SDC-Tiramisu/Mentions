@@ -28,3 +28,4 @@ dist/
 #DB#
 postgres/
 logfile
+neo4j/
