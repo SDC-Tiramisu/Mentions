@@ -54,7 +54,7 @@ let translateJSONToDB = async function (filePath, inserter) {
   });
   for await (const line of rl) {
     let json = JSON.parse(line.toString());
-    await inserter(json); //I don't htink await is needed here?
+    await inserter(json); //I don't htink await is needed here? It might need be to not mess up the sequence object I'm using in Postgres.
   }
 };
 

@@ -3,7 +3,7 @@
 //>CREATE ROLE working WITH LOGIN PASSWORD 'angel';
 //ALTER ROLE working CREATEDB;
 const settings = {
-  user: 'working',
+  user: 'robertbaker',
   host: 'localhost',
   database: 'SDC5mentions',
   password: 'angel',
