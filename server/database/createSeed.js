@@ -16,9 +16,9 @@ const generateRestaurants = function(n, start = 0) {
       title: faker.company.companyName()
     };
     restaurant.articles= [];
-    nArticles = (Math.random()*20) - 0.9 //0 to 20 restaurants
+    nArticles = (Math.random()*20) //the possibility of 0 articles is not allowed because I don't want to deal with postgres's error throwing.
     for (let i = 0; i < nArticles; i++) {
-      restaurant.articles.push(parseInt(Math.random() * 10000000000)) //random number [0, 10mil)
+      restaurant.articles.push(parseInt(Math.random() * 10000000)) //random number [0, 10mil)
     }
     restaurants.push(restaurant);
   }

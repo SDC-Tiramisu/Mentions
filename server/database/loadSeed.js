@@ -1,14 +1,15 @@
 const fs= require('fs');
 const readline = require('readline'); //https://nodejs.org/api/readline.html
 const db = require('./index.js');
+const _ = require('underscore');
 
 let script = async function () {
   const photosFile = 'server/database/photos.json';
   const authorsFile = 'server/database/authors.json';
   const articlesFile = 'server/database/articles.json';
   const restaurantsFile = 'server/database/restaurants.json';
-  //console.log('starting photos load'); //already done
-  // await translateJSONToDB(photosFile, insertPhotosToDB);
+  console.log('starting photos load');
+  await translateJSONToDB(photosFile, insertPhotosToDB);
   console.log('starting authors load');
   await translateJSONToDB(authorsFile, insertAuthorsToDB);
   console.log('starting articles load');
@@ -66,20 +67,20 @@ const insertPhotosToDB = async function (json) {
 
 const insertAuthorsToDB = async function (json) {
   return db.query(`INSERT INTO authors VALUES
-  (${json.id}, '${json.firstName}', '${json.lastName}', '${json.image}');`);
+  (${json.id}, '${_.escape(json.firstName)}', '${_.escape(json.lastName)}', ${json.image});`);
 };
 
 const insertArticlesToDB = async function (json) {
   return db.query(`INSERT INTO articles VALUES
-  (${json.id}, '${json.title}', '${json.body}', ${json.author});`);
+  (${json.id}, '${_.escape(json.title)}', '${_.escape(json.body)}', ${json.author});`);
 };
 
 const insertRestaurantsToDB = async function (json) {
   const insertRestaurantArticleConnectionsToDB = function (json) {
     //this function has become unnecessary at least in postgres. Probably.
   };
-  return db.query(`INSERT INTO articles VALUES
-  (${json.id}, '${json.title}', ARRAY ${JSON.stringify(json.articles)});`);
+  return db.query(`INSERT INTO restaurants VALUES
+  (${json.id}, '${_.escape(json.title)}', ARRAY ${JSON.stringify(json.articles)});`);
 };
 
 
