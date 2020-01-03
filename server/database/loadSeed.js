@@ -7,8 +7,8 @@ let script = async function () {
   const authorsFile = 'server/database/authors.json';
   const articlesFile = 'server/database/articles.json';
   const restaurantsFile = 'server/database/restaurants.json';
-  console.log('starting photos load');
-  await translateJSONToDB(photosFile, insertPhotosToDB);
+  //console.log('starting photos load'); //already done
+  // await translateJSONToDB(photosFile, insertPhotosToDB);
   console.log('starting authors load');
   await translateJSONToDB(authorsFile, insertAuthorsToDB);
   console.log('starting articles load');
@@ -19,7 +19,7 @@ let script = async function () {
 };
 
 // reads the JSON file at filePath assuming line breaks are items.
-//let translateJSONToDB = function (filePath, inserter) {
+// let translateJSONToDB = function (filePath, inserter) {
   // let fileHandle = use fs to open(filePath)
   // let currentLine = 1 because iti's formatted as an array
   // possibly let readBuffer be made from reading of fileHandle
@@ -66,7 +66,7 @@ const insertPhotosToDB = async function (json) {
 
 const insertAuthorsToDB = async function (json) {
   return db.query(`INSERT INTO authors VALUES
-  (${json.id}, '${json.firstName}', '${json.lastName}', ${json.firstName});`);
+  (${json.id}, '${json.firstName}', '${json.lastName}', '${json.image}');`);
 };
 
 const insertArticlesToDB = async function (json) {
