@@ -15,12 +15,17 @@ const generateRestaurants = function(n, start = 0) {
       id: i,
       title: faker.company.companyName()
     };
+    restaurant.articles= [];
+    nArticles = (Math.random()*20) - 0.9 //0 to 20 restaurants
+    for (let i = 0; i < nArticles; i++) {
+      restaurant.articles.push(parseInt(Math.random() * 10000000000)) //random number [0, 10mil)
+    }
     restaurants.push(restaurant);
   }
   return restaurants;
 };
 
-//consecutive IDs, 1-10 random restaurant ids, lorem ipsum title, lorem ipsum body, random author id, random photo id
+//consecutive IDs, 1-10 random restaurant ids, lorem ipsum title, lorem ipsum body, random author id
 const generateArticles = function(n, start = 0) {
   let articles = [];
   for (let i = start; i < n+start; i++) {
@@ -28,33 +33,29 @@ const generateArticles = function(n, start = 0) {
       id: i,
       title: faker.lorem.words(parseInt(Math.random()*10+2)), //2-12 random words
       body: faker.lorem.paragraph(), //each review is 1 paragraph long.
-      author: parseInt(Math.random()*1000000000), //random number [0,1mil)
-    }
-    article.restaurants = [];
-    nRestaurants = 1 + Math.random()*10
-    for (let i = 0; i < nRestaurants; i++) {
-      article.restaurants.push(parseInt(Math.random() * 10000000000)) //random number [0, 10mil)
+      author: parseInt(Math.random()*1000000) //random number [0,1mil)
     }
     articles.push(article);
   }
   return articles;
 }
 
-//consecutive IDs, random first name, random last name,
+//consecutive IDs, random first name, random last name, random photo id,
 const generateAuthors = function(n, start = 0) {
   let authors = [];
   for (let i = start; i < n+start; i++) {
     let author = {
       id: i,
       firstName: faker.name.firstName(),
-      lastName: faker.name.lastName()
+      lastName: faker.name.lastName(),
+      image: parseInt(Math.random()*1000000)
     }
     authors.push(author);
   }
   return authors;
 };
 
-//consecutive IDs, static photo
+//consecutive IDs, random semi-static photos.
 const generatePhotos = function(n, start = 0) {
   let photos = [];
   for (let i = start; i < n+start; i++) {
@@ -74,7 +75,7 @@ const saveToFile = function(array, filePath) { //array is what is being saved, f
     fd = fs.openSync(filePath, 'as');
     //write using streams/buffers ideally like one object at a time and keeping almost nothing in RAM. Possibly use fs.append(path, data, callback)
     for (let elt of array) {
-          fs.appendFileSync(fd, `${JSON.stringify(elt)},\n`);
+          fs.appendFileSync(fd, `${JSON.stringify(elt)}\n`);
     }
   } catch (err) {
     console.log('file opening/writing error: ' + err);
@@ -93,95 +94,33 @@ const script = () => {
   //create 10mil restaurants and call save multiple times throughout?
   console.log('starting restaurants save.')
   filePath = 'server/database/restaurants.json'
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, '[\n');
-  } catch (err) {
-    console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
-  }
   for (let i = 0; i < 10000000; i += 10000) {
     let restaurants = generateRestaurants(10000, i);
     saveToFile(restaurants, filePath);
-  }
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, ']\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
   }
 
   //create 10mil articles and call save multiple times throughout?
   console.log('starting articles saving.')
   filePath = 'server/database/articles.json'
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, '[\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
-  }
   for (let i = 0; i < 10000000; i += 1000) {
     let articles = generateArticles(1000, i);
     saveToFile(articles, filePath);
-  }
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, ']\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
   }
 
   //create 1mil authors and call save multiple times throughout
   console.log('starting authors saving.')
   filePath = 'server/database/authors.json'
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, '[\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
-  }
-  for (let i = 0; i < 1000; i += 1000000) {
-    let authors = generateAuthors(1000, i);
+  for (let i = 0; i < 1000000; i += 10000) {
+    let authors = generateAuthors(10000, i);
     saveToFile(authors, filePath);
   }
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, ']\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
-  }
 
-  //create 1000 photos then save photos
+  //create 1mil photos then save photos
   console.log('starting photos saving.')
   filePath = 'server/database/photos.json'
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, '[\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
-  }
-  let photos = generatePhotos(1000);
-  saveToFile(photos, filePath);
-  try {
-    fd = fs.openSync(filePath, 'as');
-    fs.appendFileSync(fd, ']\n');
-  } catch (err) {
-  console.log('file opening/writing error: ' + err);
-  } finally {
-    fs.closeSync(fd)
+  for (let i = 0; i < 1000000; i += 10000) {
+    let photos = generatePhotos(10000, i);
+    saveToFile(photos, filePath);
   }
 };
 
