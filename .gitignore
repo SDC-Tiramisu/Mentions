@@ -25,7 +25,10 @@ coverage
 build/
 dist/
 
-#DB#
+#DB
 postgres/
+2
+1
 logfile
 server/database/*.json
+server/database/loginsettings.js
