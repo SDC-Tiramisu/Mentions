@@ -60,27 +60,51 @@ let translateJSONToDB = async function (filePath, inserter) {
 };
 
 //the functiosn for taking the JSOn and putting it into the DB
+// the following below this is neo4j stuff.
+// nodes:
+// CREATE (p:Photo {id: ${id}, url: ${url}})
+// CREATE (a:Author {id: ${id}, firstName: ${firstName}, lastName: ${lastName}})
+// CREATE (a:Article {id: ${id}, title: ${title}, body: ${body}})
+// CREATE (r:Restaurant {id: ${id}, title: ${title}})
+// edges:
+// CREATE (photo:Photo {id: ${id1}})-[:PICTURE_OF]->(author:Author {id: ${id2}})
+// CREATE (article:Article {id: ${id1}})-[:WRITTEN_BY]->(author:Author {id: ${id2}})
+// CREATE (restaurant:Restaurant {id: ${id1}})-[:REVIEWED_BY]->(article:Article {id: ${id2}})
 const insertPhotosToDB = async function (json) {
-  return db.query(`INSERT INTO photos VALUES
-  (${json.id}, '${json.url}');`);
+  return db.query(`CREATE
+    (photo:Photo
+      {id: ${json.id}, url: '${json.url}'})`);
 };
 
 const insertAuthorsToDB = async function (json) {
-  return db.query(`INSERT INTO authors VALUES
-  (${json.id}, '${_.escape(json.firstName)}', '${_.escape(json.lastName)}', ${json.image});`);
+  return db.query(`CREATE
+    (author:Author
+      {id: ${json.id}, firstName: '${json.firstName}', lastName: '${json.lastName}'})`)
+    .then(db.query(`CREATE
+      (author:Author {id: ${json.id}})
+      -[:IN_PICTURE]
+      ->(photo:Photo {id: ${json.photo}}`));
 };
 
 const insertArticlesToDB = async function (json) {
-  return db.query(`INSERT INTO articles VALUES
-  (${json.id}, '${_.escape(json.title)}', '${_.escape(json.body)}', ${json.author});`);
+  return db.query(`CREATE
+    (article:Article
+      {id: ${json.id}, title: '${json.title}', body: '${json.body}'})`)
+    .then(db.query(`CREATE
+      (article:Article {id: ${json.id}})
+      -[:WRITTEN_BY]
+      ->(author:Author {id: ${json.author}}`));
 };
 
 const insertRestaurantsToDB = async function (json) {
-  const insertRestaurantArticleConnectionsToDB = function (json) {
-    //this function has become unnecessary at least in postgres. Probably.
-  };
-  return db.query(`INSERT INTO restaurants VALUES
-  (${json.id}, '${_.escape(json.title)}', ARRAY ${JSON.stringify(json.articles)});`);
+  return db.query(`CREATE
+    (article:Article
+      {id: ${json.id}, title: '${json.title}''})`)
+    .then(for (article of json.article) {
+      db.query(`CREATE
+      (restaurant:Restaurant {id: ${json.id}})
+      -[:REVIEWED_IN]
+      ->(article:Article {id: ${article}}`));
 };
 
 

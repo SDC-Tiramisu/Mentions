@@ -1,0 +1,10 @@
+This is the basic outline of the schema including approximate json names for props
+nodes:
+  CREATE (p:Photo {id: ${id}, url: ${url}})
+  CREATE (a:Author {id: ${id}, firstName: ${firstName}, lastName: ${lastName}})
+  CREATE (a:Article {id: ${id}, title: ${title}, body: ${body}})
+  CREATE (r:Restaurant {id: ${id}, title: ${title}})
+edges:
+  CREATE (author:Author {id: ${json.id}})-[:IN_PICTURE]->(photo:Photo {id: ${json.photo}}
+  CREATE (article:Article {id: ${id1}})-[:WRITTEN_BY]->(author:Author {id: ${id2}})
+  CREATE (restaurant:Restaurant {id: ${id1}})-[:REVIEWED_IN]->(article:Article {id: ${id2}})
