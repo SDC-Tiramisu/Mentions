@@ -32,3 +32,4 @@ postgres/
 logfile
 server/database/*.json
 server/database/loginsettings.js
+neo4j/
