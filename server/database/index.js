@@ -1,11 +1,11 @@
 const neo4j = require('neo4j-driver')
-const settings = require('./loginsettings');
+const driver = require('./loginsettings');
 
-const driver = neo4j.driver(
-  'neo4j://localhost',
-  neo4j.auth.basic('neo4j','neo4j')
-);
+const settings = {
+  database: 'mentions',
+  defaultAccessMode: neo4j.session.READ
+}
 const db = driver.session(settings);
 //await driver.close() //where do I run this code?!?!
 
-module.exports = db;
+module.exports = db;∂

@@ -19,12 +19,13 @@
 
 > Some usage instructions
 
+npm run server
+
+And then go to port 3003 to access the server.
+
 ## Requirements
 
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
-- Node 6.13.0
-- etc
+An up to date node build.
 
 ## Development
 
@@ -32,8 +33,10 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 From within the root directory:
 
-```sh
-npm install -g webpack
+```
 npm install
+npm run seed:create
+npm run seed:load
+npm run build:dev
 ```
 

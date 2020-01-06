@@ -57,7 +57,7 @@ app.get('/api/restaurants/read/:restaurantID', (req, res) => {
 })
 
 //Update route
-app.post('/api/restaurants/update/:restaurantID', (req, res) => {
+app.patch('/api/restaurants/update/:restaurantID', (req, res) => {
   var restId = parseInt(req.params.restaurantID);
   let body = req.body;
   // console.log("Restaurant ID: ", restId);
@@ -67,12 +67,12 @@ app.post('/api/restaurants/update/:restaurantID', (req, res) => {
       res.end();
       // console.log(doc);
     })
-    .catch((err) => {
+    .catch((err) => {∂
       console.log("Error updating restaurant in database: ", err);
     })
 })
 
-app.post('/api/restaurants/delete/:restaurantID', (req, res) => {
+app.delete('/api/restaurants/delete/:restaurantID', (req, res) => {
   var restId = parseInt(req.params.restaurantID);
   // console.log("Restaurant ID: ", restId);
   Model.delete(restId)

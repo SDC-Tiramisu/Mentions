@@ -1,4 +1,3 @@
-const Restaurant = require('./database/schema.js');
 const db = require('./index.js')
 
 //TO-DO: Update to Postgres
@@ -15,7 +14,7 @@ const model = {
   update: function(id, articleId) {
     return Restaurant.findOne({id})
       .then((record) => {
-        record.articles.push(articleId)
+        record.articles.push(articleId);∂
         return record.save();
       });
   },
