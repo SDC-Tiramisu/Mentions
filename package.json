@@ -35,12 +35,14 @@
     "mongodb": "^3.3.5",
     "mongoose": "^5.7.12",
     "node": "^13.3.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "pg": "^7.15.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "styled-components": "^4.4.1",
     "underscore": "^1.9.1",
+    "unsplash-js": "^6.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
