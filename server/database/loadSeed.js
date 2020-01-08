@@ -76,9 +76,6 @@ const insertArticlesToDB = async function (json) {
 };
 
 const insertRestaurantsToDB = async function (json) {
-  const insertRestaurantArticleConnectionsToDB = function (json) {
-    //this function has become unnecessary at least in postgres. Probably.
-  };
   return db.query(`INSERT INTO restaurants VALUES
   (${json.id}, '${_.escape(json.title)}', ARRAY ${JSON.stringify(json.articles)});`);
 };
