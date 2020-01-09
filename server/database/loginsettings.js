@@ -3,11 +3,8 @@
 //>CREATE ROLE working WITH LOGIN PASSWORD 'angel';
 //ALTER ROLE working CREATEDB;
 const settings = {
-  user: 'robertbaker',
-  host: 'localhost',
-  database: 'SDC5mentions',
-  password: 'angel',
-  port: 5432,
+  database: 'mentions',
+  defaultAccessMode: neo4j.session.READ
 }
 
 module.exports = settings;
