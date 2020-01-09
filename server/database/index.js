@@ -1,11 +1,11 @@
 const neo4j = require('neo4j-driver')
 const settings = require('./loginsettings');
 
-const driver = neo4j.driver(
-  'neo4j://localhost',
-  neo4j.auth.basic('neo4j','neo4j')
-);
-const db = driver.session(settings);
-//await driver.close() //where do I run this code?!?!
+//"pg_ctl start -D postgres -l logfile" to start the server?
+//I got it running I think with
+//postmaster -D postgres >logfile >2&1 &
+const db = new Client(settings);
+db.connect();
+
 
 module.exports = db;
