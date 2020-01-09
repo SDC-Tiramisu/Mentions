@@ -1,4 +1,4 @@
-const neo4j = require('neo4j-driver')
+const { Client } = require('pg')
 const settings = require('./loginsettings');
 
 //"pg_ctl start -D postgres -l logfile" to start the server?
