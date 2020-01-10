@@ -8,10 +8,10 @@ let script = async function () {
   const authorsFile = 'server/database/authors.json';
   const articlesFile = 'server/database/articles.json';
   const restaurantsFile = 'server/database/restaurants.json';
-  console.log('starting photos load');
-  await translateJSONToDB(photosFile, insertPhotosToDB);
-  console.log('starting authors load');
-  await translateJSONToDB(authorsFile, insertAuthorsToDB);
+  // console.log('starting photos load');
+  // await translateJSONToDB(photosFile, insertPhotosToDB);
+  // console.log('starting authors load');
+  // await translateJSONToDB(authorsFile, insertAuthorsToDB);
   console.log('starting articles load');
   await translateJSONToDB(articlesFile, insertArticlesToDB);
   console.log('starting restaurants load');
