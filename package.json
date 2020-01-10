@@ -34,6 +34,7 @@
     "jquery": "^3.4.1",
     "mongodb": "^3.3.5",
     "mongoose": "^5.7.12",
+    "newrelic": "^6.2.0",
     "node": "^13.3.0",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",

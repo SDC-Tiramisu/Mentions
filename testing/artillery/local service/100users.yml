@@ -1,0 +1,9 @@
+config:
+  target: 'http://localhost:3003'
+  phases:
+    - duration: 600
+      arrivalRate: 100
+scenarios:
+  - flow:
+    - get:
+        url: "/api/articles/read/9654321"

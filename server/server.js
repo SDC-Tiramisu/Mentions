@@ -1,8 +1,10 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./database/index.js');
 const Model = require('./database/model.js');
+
 
 //basic server prep
 const app = express();
