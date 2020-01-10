@@ -4,7 +4,7 @@
 //ALTER ROLE working CREATEDB;
 const settings = {
   user: 'robertbaker',
-  host: 'localhost',
+  host: 'ip-172-31-27-253.us-east-2.compute.internal',
   database: 'SDC5mentions',
   password: 'angel',
   port: 5432,

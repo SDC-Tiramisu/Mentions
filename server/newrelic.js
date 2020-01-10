@@ -9,7 +9,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['SDC5Tiramisu Mentions Module - Local Service'],
+  app_name: ['SDC5Tiramisu Mentions Module - AWS Service'],
   /**
    * Your New Relic license key.
    */
