@@ -33,7 +33,7 @@
     "faker": "^4.1.0",
     "jquery": "^3.4.1",
     "mongodb": "^3.3.5",
-    "mongoose": "^5.7.12",
+    "mongoose": "^8.8.3",
     "neo4j-driver": "^4.0.1",
     "node": "^13.3.0",
     "node-fetch": "^2.6.0",
